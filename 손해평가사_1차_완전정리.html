@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>손해평가사 1차 시험 완전정리</title>
+<style>
+  :root {
+    --c1: #1a6b3c; /* 상법 green */
+    --c2: #1a4d8a; /* 농법 blue */
+    --c3: #7a3b10; /* 재배학 brown */
+    --bg: #f8f7f4;
+    --card: #ffffff;
+    --border: #e4e1d8;
+    --warn: #fff3cd;
+    --warn-border: #ffc107;
+    --tip: #e8f5e9;
+    --tip-border: #4caf50;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: #222;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* ── NAV ── */
+  .nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #1a1a2e;
+    display: flex;
+    gap: 4px;
+    padding: 8px 16px;
+    flex-wrap: wrap;
+  }
+  .nav-bar a {
+    color: #ccc;
+    text-decoration: none;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all .2s;
+  }
+  .nav-bar a:hover, .nav-bar a.active { background: #fff; color: #1a1a2e; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #fff;
+    text-align: center;
+    padding: 48px 24px 36px;
+  }
+  .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+  .hero p { font-size: 14px; color: #aac; }
+  .score-targets {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .score-box {
+    background: rgba(255,255,255,.12);
+    border-radius: 12px;
+    padding: 12px 20px;
+    min-width: 120px;
+  }
+  .score-box .sub { font-size: 12px; color: #aac; }
+  .score-box .val { font-size: 24px; font-weight: 800; }
+
+  /* ── SECTION TABS ── */
+  .section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 16px 60px;
+  }
+
+  .section-header {
+    padding: 28px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-header .badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: .5px;
+  }
+  .section-header h2 { font-size: 22px; font-weight: 800; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,.04);
+  }
+  .card-header {
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .card-header h3 { font-size: 15px; font-weight: 700; flex: 1; }
+  .card-header .imp { font-size: 13px; letter-spacing: -1px; }
+  .card-header .arrow { font-size: 12px; color: #999; transition: transform .2s; }
+  .card.open .arrow { transform: rotate(180deg); }
+  .card-body { display: none; padding: 0 18px 18px; }
+  .card.open .card-body { display: block; }
+
+  /* ── CONTENT ELEMENTS ── */
+  .keyword-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+  }
+  .kw {
+    background: #f0f0f0;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .kw.red { background: #ffeaea; color: #c0392b; }
+  .kw.blue { background: #e3f0ff; color: #1a4d8a; }
+  .kw.green { background: #e8f5e9; color: #1a6b3c; }
+  .kw.yellow { background: #fff8e1; color: #7a5c00; }
+  .kw.purple { background: #f3e5f5; color: #6a1b9a; }
+
+  .alert-box {
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 14px;
+  }
+  .alert-box.warn { background: var(--warn); border-left: 4px solid var(--warn-border); }
+  .alert-box.tip  { background: var(--tip);  border-left: 4px solid var(--tip-border); }
+  .alert-box.info { background: #e3f0ff; border-left: 4px solid #1a4d8a; }
+  .alert-box.danger { background: #ffeaea; border-left: 4px solid #e74c3c; }
+  
+  .alert-box strong { font-weight: 700; }
+
+  table.std {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 10px 0;
+  }
+  table.std th, table.std td {
+    border: 1px solid #ddd;
+    padding: 8px 10px;
+    text-align: left;
+  }
+  table.std th { background: #f5f5f5; font-weight: 700; }
+  table.std tr:nth-child(even) td { background: #fafafa; }
+
+  .flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin: 8px 0;
+    font-size: 14px;
+  }
+  .flow-item {
+    background: #f0f4ff;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-weight: 600;
+  }
+  .flow-arr { color: #999; font-size: 16px; }
+
+  .mnemonic {
+    background: linear-gradient(135deg, #fff8e1, #fffde7);
+    border: 2px dashed #f9a825;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #5d4037;
+  }
+  .mnemonic small { display: block; font-size: 12px; font-weight: 400; letter-spacing: 0; color: #666; margin-top: 4px; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 10px 0;
+  }
+  @media(max-width:600px){ .two-col { grid-template-columns: 1fr; } }
+  
+  .mini-card {
+    background: #f8f8f8;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  .mini-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: #444; }
+
+  .num-list { padding-left: 0; list-style: none; }
+  .num-list li { padding: 4px 0 4px 0; font-size: 14px; border-bottom: 1px solid #f0f0f0; }
+  .num-list li:last-child { border-bottom: none; }
+  .num-list li::before {
+    content: attr(data-n) ". ";
+    font-weight: 700;
+    color: #888;
+  }
+
+  /* importance stars */
+  .s5::before { content: "★★★★★ "; color: #e74c3c; font-size: 12px; }
+  .s4::before { content: "★★★★ "; color: #e67e22; font-size: 12px; }
+  .s3::before { content: "★★★ ";   color: #f39c12; font-size: 12px; }
+  .s2::before { content: "★★ ";    color: #27ae60; font-size: 12px; }
+
+  .tag-row { margin: 6px 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .tag.law { background: #e8f5e9; color: #1a6b3c; }
+  .tag.trap { background: #ffeaea; color: #c0392b; }
+  .tag.period { background: #e3f0ff; color: #1a4d8a; }
+
+  hr.divider { border: none; border-top: 2px dashed #eee; margin: 12px 0; }
+
+  p.desc { font-size: 14px; color: #444; margin: 6px 0; }
+
+  .formula {
+    background: #1a1a2e;
+    color: #7dffb3;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-family: monospace;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 8px 0;
+    letter-spacing: 1px;
+  }
+
+  /* Section color themes */
+  .theme-1 .card-header { border-left: 4px solid var(--c1); }
+  .theme-2 .card-header { border-left: 4px solid var(--c2); }
+  .theme-3 .card-header { border-left: 4px solid var(--c3); }
+</style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="#sec1" onclick="setActive(this)">📚 상법·보험편</a>
+  <a href="#sec2" onclick="setActive(this)">🌾 농작물재해보험법</a>
+  <a href="#sec3" onclick="setActive(this)">🌱 재배학·원예작물학</a>
+</div>
+
+<div class="hero">
+  <h1>손해평가사 1차 시험 완전정리 노트</h1>
+  <p>보기 좋고 암기하기 쉽게 재편집한 핵심 정리</p>
+  <div class="score-targets">
+    <div class="score-box">
+      <div class="sub">상법·보험편</div>
+      <div class="val" style="color:#7dffb3">80점</div>
+    </div>
+    <div class="score-box">
+      <div class="sub">농작물재해보험법</div>
+      <div class="val" style="color:#7db8ff">80점</div>
+    </div>
+    <div class="score-box">
+      <div class="sub">재배학·원예</div>
+      <div class="val" style="color:#ffd37d">60점</div>
+    </div>
+    <div class="score-box">
+      <div class="sub">시험 구조</div>
+      <div class="val" style="color:#fff">75문항</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ 과목 1 ════════════ -->
+<div class="section" id="sec1">
+  <div class="section-header">
+    <span class="badge" style="background:var(--c1)">과목 1</span>
+    <h2 style="color:var(--c1)">상법 · 보험편</h2>
+  </div>
+
+  <!-- 01강 -->
+  <div class="card theme-1 open">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>01강 보험의 원리·위험·대원칙</h3>
+      <span class="imp">★★★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s5">보험의 정의 4키워드</p>
+      <div class="keyword-row">
+        <span class="kw red">① 손실 발생 시</span>
+        <span class="kw red">② 금전(경제적)으로</span>
+        <span class="kw red">③ 보험자와 약정(계약)</span>
+        <span class="kw red">④ 위험 전가·보상</span>
+      </div>
+
+      <p class="desc s5">위험의 핵심 성질</p>
+      <div class="alert-box warn">
+        <strong>보험의 위험 = 불확실성(우연성)</strong><br>
+        확률 100% (이미 발생) → ❌ 보험 위험 아님<br>
+        확률 0% (발생 불가) → ❌ 보험 위험 아님
+      </div>
+
+      <p class="desc s5">보험 위험의 특징 3가지</p>
+      <ul class="num-list">
+        <li data-n="1">우연적 사고 (주관적 우연성)</li>
+        <li data-n="2">다수·동질 위험 + <strong>대수의 법칙</strong> → 보험료 산정 가능</li>
+        <li data-n="3">측정 가능 (경제적 환산 가능) — 정신적 가치는 원칙상 대상 ❌</li>
+      </ul>
+
+      <hr class="divider">
+      <p class="desc s5">보험의 대원칙 6가지</p>
+      <div class="two-col">
+        <div class="mini-card">
+          <h4>① 대수의 법칙</h4>통계로 사고율·손해액 예측 → 보험료 산정 근거
+        </div>
+        <div class="mini-card">
+          <h4>② 실손보상 = 이득금지 = 원상회복</h4>손해보험은 실제 손해만 보상
+        </div>
+        <div class="mini-card">
+          <h4>③ 수지상등의 원칙</h4>보험료 총액 ≈ 보험금 + 사업비
+        </div>
+        <div class="mini-card">
+          <h4>④ 급부·반대급부 균등</h4>내 보험료 ↔ 기대 보험급여 균형
+        </div>
+        <div class="mini-card">
+          <h4>⑤ 공평성의 원칙</h4>위험이 큰 사람 → 더 부담 (차등 보험료)
+        </div>
+        <div class="mini-card">
+          <h4>⑥ 신의성실(최대선의) 원칙</h4>고지·통지·위험유지 의무 파생
+        </div>
+      </div>
+
+      <div class="alert-box tip">
+        <strong>시험 직전 7줄 암기</strong><br>
+        ① 보험키워드: 손실·금전·약정·전가 | ② 위험: 우연성(불확실성)<br>
+        ③ 위험X: 100% / 0% | ④ 다수·동질 + 대수 → 보험료<br>
+        ⑤ 실손보상=이득금지=원상회복 | ⑥ 수지상등/급부균등/공평성<br>
+        ⑦ 신의성실 → 고지·통지·위험유지
+      </div>
+    </div>
+  </div>
+
+  <!-- 02강 -->
+  <div class="card theme-1">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>02강 보험의 분류·핵심개념</h3>
+      <span class="imp">★★★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s5">총괄(포괄)보험 — 시험 함정 1위</p>
+      <div class="alert-box danger">
+        기준 = <strong>"보험사고 발생 시 현존하는 물건"</strong><br>
+        계약 당시 없었어도 사고 때 있으면 ✅ 포함<br>
+        계약 당시 있었어도 사고 때 없으면 ❌ 제외
+      </div>
+
+      <p class="desc s5">보험가액 / 보험금액 / 보험금 구분</p>
+      <table class="std">
+        <tr><th>용어</th><th>의미</th></tr>
+        <tr><td><strong>보험가액</strong></td><td>보험목적의 실제 가치 (손해 상한 기준)</td></tr>
+        <tr><td><strong>보험금액</strong>(가입금액)</td><td>계약에서 정한 보장 한도</td></tr>
+        <tr><td><strong>보험금</strong></td><td>사고 후 실제 지급되는 돈</td></tr>
+      </table>
+      <div class="keyword-row">
+        <span class="kw red">일부보험: 금액 &lt; 가액</span>
+        <span class="kw blue">전부보험: 금액 = 가액</span>
+        <span class="kw yellow">초과보험: 금액 &gt; 가액</span>
+      </div>
+
+      <p class="desc s5">중복보험 vs 공동보험</p>
+      <table class="std">
+        <tr><th>구분</th><th>중복보험</th><th>공동보험</th></tr>
+        <tr><td>계약 수</td><td>여러 개</td><td>1개</td></tr>
+        <tr><td>특징</td><td>보험금 합계 &gt; 보험가액</td><td>보험자가 여러 명</td></tr>
+      </table>
+
+      <p class="desc s5">보험계약 법적 성질 6키워드</p>
+      <div class="keyword-row">
+        <span class="kw">불요식</span>
+        <span class="kw">낙성(청약+승낙)</span>
+        <span class="kw red">보험료≠계약성립요건</span>
+        <span class="kw">사행계약성</span>
+        <span class="kw">유상·쌍무</span>
+        <span class="kw">부합계약성</span>
+      </div>
+
+      <div class="alert-box warn">
+        <strong>시험 함정 TOP 5</strong><br>
+        "총괄보험 목적 = 계약 당시 물건" → ❌ (사고 당시)<br>
+        "보험료는 계약 성립 요건" → ❌ (책임개시 요건)<br>
+        "중복보험 = 계약 여러 개면 무조건" → ❌ (가액 초과가 핵심)<br>
+        "공동보험 = 중복보험" → ❌ (계약 1개 vs 여러 개)<br>
+        "개인보험도 특약이면 불리 변경 가능" → ❌
+      </div>
+    </div>
+  </div>
+
+  <!-- 03강 -->
+  <div class="card theme-1">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>03강 보험계약의 요소·보험자 보조자</h3>
+      <span class="imp">★★★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s5">보험자의 보조자 권한 비교 (초중요)</p>
+      <table class="std">
+        <tr><th>구분</th><th>보험대리상</th><th>보험모집인</th></tr>
+        <tr><td>의사표시 수령·발신</td><td>✅</td><td>❌</td></tr>
+        <tr><td>보험료 수령</td><td>✅</td><td>✅ (영수증 조건)</td></tr>
+        <tr><td>보험증권 교부</td><td>✅</td><td>✅ (보험자 작성분)</td></tr>
+        <tr><td>보험금 지급</td><td>❌</td><td>❌</td></tr>
+        <tr><td>계약 체결권</td><td>체약대리상 ✅</td><td>❌</td></tr>
+      </table>
+
+      <div class="alert-box info">
+        <strong>대리인 규칙:</strong> 대리인이 안 사실 = 계약자가 안 것으로 <strong>본다</strong>
+      </div>
+
+      <p class="desc s5">보험금 지급 시기</p>
+      <div class="flow">
+        <span class="flow-item">약정 있음</span><span class="flow-arr">→</span>
+        <span class="flow-item">약정 기간 내 지급</span>
+      </div>
+      <div class="flow">
+        <span class="flow-item">약정 없음</span><span class="flow-arr">→</span>
+        <span class="flow-item">지체 없이 손해액 산정</span><span class="flow-arr">→</span>
+        <span class="flow-item">확정 후 <strong>10일 내</strong> 지급</span>
+      </div>
+
+      <div class="alert-box warn">
+        약관 교부·설명 의무 위반 → 계약자는 <strong>3개월 내 취소</strong> 가능
+      </div>
+
+      <p class="desc s4">피보험이익 요건 3가지</p>
+      <div class="keyword-row">
+        <span class="kw green">① 경제성 (금전 환산 가능)</span>
+        <span class="kw green">② 적법성 (불법재산 불가)</span>
+        <span class="kw green">③ 확정성 (사고 시 확정 가능)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04강 -->
+  <div class="card theme-1">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>04강 승낙 전 보호·고지의무</h3>
+      <span class="imp">★★★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s5">승낙 전 보호 요건 3가지</p>
+      <div class="keyword-row">
+        <span class="kw red">① 보험 청약 있음</span>
+        <span class="kw red">② 보험료 일부 또는 전부 납입</span>
+        <span class="kw red">③ 청약 거절 사유 없음</span>
+      </div>
+      <div class="alert-box info">승낙 통지 기간: <strong>30일</strong> 내 승낙/거절 — 무통지 시 <strong>승낙한 것으로 본다</strong></div>
+
+      <p class="desc s5">고지의무</p>
+      <table class="std">
+        <tr><th>항목</th><th>내용</th></tr>
+        <tr><td>의무자</td><td>보험계약자, 피보험자, 대리인</td></tr>
+        <tr><td>시기</td><td>계약 체결 시</td></tr>
+        <tr><td>위반 요건</td><td>고의·중과실 + 중요사항 + 불고지/허위</td></tr>
+        <tr><td>해지 기간</td><td>안 날로부터 <strong>1개월</strong> / 계약일로부터 <strong>3년</strong></td></tr>
+      </table>
+
+      <p class="desc s5">해지 제한 (해지 불가 경우)</p>
+      <div class="keyword-row">
+        <span class="kw blue">① 보험자가 이미 알고 있었음</span>
+        <span class="kw blue">② 보험자 중과실로 몰랐음</span>
+        <span class="kw blue">③ 사고와 고지위반 간 인과관계 없음</span>
+      </div>
+
+      <p class="desc s4">해지 vs 해제</p>
+      <div class="two-col">
+        <div class="mini-card"><h4>해지 (장래효)</h4>지금까지 계약 유효 + 앞으로 효력 없음</div>
+        <div class="mini-card"><h4>해제 (소급효)</h4>처음부터 계약이 없었던 것</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05강 -->
+  <div class="card theme-1">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>05강 보험약관·보험증권·보험자 의무</h3>
+      <span class="imp">★★★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s5">계약 내용 적용 우선순위</p>
+      <div class="flow">
+        <span class="flow-item">① 개별 약정</span>
+        <span class="flow-arr">&gt;</span>
+        <span class="flow-item">② 특별약관(특약)</span>
+        <span class="flow-arr">&gt;</span>
+        <span class="flow-item">③ 보통약관</span>
+      </div>
+
+      <p class="desc s5">약관 해석 원칙 5가지</p>
+      <ul class="num-list">
+        <li data-n="1">신의성실 원칙</li>
+        <li data-n="2">개별약정 우선 원칙</li>
+        <li data-n="3"><strong>작성자 불이익 원칙</strong> — 애매하면 보험자(작성자) 불리하게 해석</li>
+        <li data-n="4">축소 해석 원칙 — 면책조항 좁게 해석</li>
+        <li data-n="5">객관적 해석 원칙</li>
+      </ul>
+
+      <p class="desc s5">보험증권 성격 3가지</p>
+      <div class="keyword-row">
+        <span class="kw">① 요식증권 (형식 필요)</span>
+        <span class="kw">② 증거증권 (계약 내용 증거)</span>
+        <span class="kw red">③ 면책증권 — 증권 제시자에게 지급 시 보험자 면책</span>
+      </div>
+      <div class="alert-box warn">
+        <strong>보험증권 재교부 비용 = 보험계약자 부담</strong><br>
+        보험증권 = 계약서 ❌ / 계약 성립요건 ❌ — 단순 증명문서
+      </div>
+
+      <p class="desc s5">손해보험증권 기재사항 9가지</p>
+      <div class="keyword-row">
+        <span class="kw">보험목적</span><span class="kw">사고성질</span>
+        <span class="kw">보험금액</span><span class="kw">보험료/지급방법</span>
+        <span class="kw">보험기간</span><span class="kw">무효·실권사유</span>
+        <span class="kw">계약자 주소·성명</span><span class="kw">계약연월일</span>
+        <span class="kw">증권 작성지·작성연월일</span>
+      </div>
+
+      <div class="alert-box tip">
+        <strong>소멸시효:</strong> 보험금 청구권 <strong>3년</strong> / 보험자 권리 <strong>2년</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06강 -->
+  <div class="card theme-1">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>06강 위험변경·보험계약 변동·부활</h3>
+      <span class="imp">★★★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s5">계속보험료 미납 해지 절차</p>
+      <div class="flow">
+        <span class="flow-item">보험자 최고</span><span class="flow-arr">→</span>
+        <span class="flow-item">상당기간 경과</span><span class="flow-arr">→</span>
+        <span class="flow-item">계약 해지</span>
+      </div>
+      <div class="alert-box info">제1회 보험료 미납 → <strong>2개월 경과</strong> 후 계약 <strong>해제</strong> (해지 아님!)</div>
+
+      <p class="desc s5">보험계약자 5대 의무</p>
+      <div class="keyword-row">
+        <span class="kw red">① 고지의무</span>
+        <span class="kw red">② 위험변경·증가 통지의무</span>
+        <span class="kw red">③ 위험유지 의무</span>
+        <span class="kw red">④ 사고통지 의무</span>
+        <span class="kw red">⑤ 손해방지 의무</span>
+      </div>
+
+      <p class="desc s5">보험계약 부활 조건</p>
+      <ul class="num-list">
+        <li data-n="1">계속보험료 미납으로 <strong>해지</strong>된 경우만 해당</li>
+        <li data-n="2">해지환급금 수령 안 함</li>
+        <li data-n="3">연체보험료 + 약정이자 지급</li>
+        <li data-n="4">보험자 승낙 (30일 내 통지, 무통지 시 승낙으로 간주)</li>
+      </ul>
+
+      <p class="desc s5">보험자 면책사유 3가지</p>
+      <div class="keyword-row">
+        <span class="kw red">① 고의 또는 중대한 과실</span>
+        <span class="kw red">② 전쟁·내란 등</span>
+        <span class="kw red">③ 목적물 성질·자연소모</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07강 -->
+  <div class="card theme-1">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>07강 보험계약 해지·타인을 위한 보험</h3>
+      <span class="imp">★★★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s5">타인을 위한 보험 특징</p>
+      <div class="two-col">
+        <div class="mini-card">
+          <h4>성립요건</h4>
+          계약자 ≠ 피보험자<br>
+          위임 필요 없음<br>
+          타인 특정: 사고 전까지만
+        </div>
+        <div class="mini-card">
+          <h4>타인(피보험자) 권리</h4>
+          수익의 의사표시 <strong>없이도</strong> 권리 취득<br>
+          보험 존재 몰라도 권리 취득<br>
+          1차 보험료 의무 없음
+        </div>
+      </div>
+      <div class="alert-box warn">
+        타인을 위한 보험 해지 시 → <strong>타인의 동의 또는 보험증권</strong> 필요
+      </div>
+    </div>
+  </div>
+
+  <!-- 08강 -->
+  <div class="card theme-1">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>08~09강 손해보험 통칙·보험가액·보험대위</h3>
+      <span class="imp">★★★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s5">일부보험 비례보상 공식 (계산문제 핵심)</p>
+      <div class="formula">보험금 = 손해액 × (보험금액 / 보험가액)</div>
+      <p class="desc">예) 가액 10억, 금액 8억, 손해 5억 → 5억 × (8/10) = <strong>4억</strong></p>
+
+      <p class="desc s5">초과보험 vs 중복보험</p>
+      <table class="std">
+        <tr><th>구분</th><th>초과보험</th><th>중복보험</th></tr>
+        <tr><td>정의</td><td>보험금액 &gt; 보험가액</td><td>여러 계약, 합계 &gt; 보험가액</td></tr>
+        <tr><td>효과</td><td>보험가액 한도 지급</td><td>비례 책임 분담</td></tr>
+        <tr><td>사기의 경우</td><td><strong>계약 무효</strong></td><td>통지의무 위반 → 문제</td></tr>
+      </table>
+
+      <p class="desc s5">보험대위 2가지</p>
+      <div class="two-col">
+        <div class="mini-card">
+          <h4>① 목적물 대위 (잔존물 대위)</h4>
+          조건: <strong>전부 멸실 + 전부 지급</strong><br>
+          효과: 보험자가 잔존물 권리 취득<br>
+          일부보험: 보험금액/보험가액 비율로 취득
+        </div>
+        <div class="mini-card">
+          <h4>② 청구권 대위</h4>
+          제3자 때문에 손해 발생 시<br>
+          보험금 지급 후 제3자 청구권 취득<br>
+          단, <strong>생계 같이하는 가족은 제외</strong>
+        </div>
+      </div>
+
+      <p class="desc s5">기평가보험 vs 미평가보험</p>
+      <div class="two-col">
+        <div class="mini-card">
+          <h4>기평가보험 (협정보험가액)</h4>
+          미리 보험가액 합의<br>
+          협정가액 = 사고가액으로 <strong>추정</strong><br>
+          단, 현저히 크면 → 사고가액 적용
+        </div>
+        <div class="mini-card">
+          <h4>미평가보험</h4>
+          보험가액 = <strong>사고 발생 시 가액</strong>
+        </div>
+      </div>
+
+      <div class="alert-box tip">
+        <strong>실손보상 원칙 예외:</strong> ① 기평가보험 ② 신품가액보상 ③ 손해방지비용<br>
+        손해방지비용은 보험금액 초과해도 보험자가 부담!
+      </div>
+    </div>
+  </div>
+
+  <!-- 10~12강 -->
+  <div class="card theme-1">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>10~12강 화재보험·책임보험·보증보험·재보험</h3>
+      <span class="imp">★★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s5">집합보험·총괄보험</p>
+      <div class="alert-box warn">
+        <strong>집합보험(총괄):</strong> 피보험자의 <strong>가족·사용인 물건도 포함</strong>된 것으로 한다<br>
+        총괄보험 기준: 사고 발생 시 현존 물건
+      </div>
+
+      <p class="desc s5">책임보험 특징</p>
+      <div class="keyword-row">
+        <span class="kw red">보험가액 없음 → 초과보험·일부보험 없음</span>
+        <span class="kw green">제3자 직접청구권 인정</span>
+        <span class="kw blue">방어비용 포함 (선급 가능)</span>
+      </div>
+
+      <p class="desc s5">보증보험 특징</p>
+      <div class="two-col">
+        <div class="mini-card">
+          <h4>구조</h4>채무자=계약자, 채권자=피보험자<br><strong>타인을 위한 보험</strong>
+        </div>
+        <div class="mini-card">
+          <h4>특이점</h4>고의·중과실 면책 <strong>적용 안됨</strong><br>보험금 지급 후 → 채무자에게 구상권
+        </div>
+      </div>
+
+      <p class="desc s5">재보험 핵심</p>
+      <div class="alert-box info">
+        원보험 계약과 재보험 계약은 <strong>별개의 독립 계약</strong><br>
+        원보험 피보험자 → 재보험사에 직접 청구 ❌ (원칙)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ 과목 2 ════════════ -->
+<div class="section" id="sec2">
+  <div class="section-header">
+    <span class="badge" style="background:var(--c2)">과목 2</span>
+    <h2 style="color:var(--c2)">농작물 재해보험법 &amp; 손해평가요령</h2>
+  </div>
+
+  <!-- 01강 -->
+  <div class="card theme-2 open">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>01강 재해보험 종류·심의회·분과위원회</h3>
+      <span class="imp">★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s3">재해보험 종류 구조</p>
+      <table class="std">
+        <tr><th>대분류</th><th>종류</th><th>담당</th></tr>
+        <tr><td rowspan="3">농업재해보험</td><td>농작물 재해보험</td><td rowspan="3">농림축산식품부 장관</td></tr>
+        <tr><td>임산물 재해보험</td></tr>
+        <tr><td>가축 재해보험</td></tr>
+        <tr><td>어업재해보험</td><td>양식수산물 재해보험</td><td>해양수산부 장관</td></tr>
+      </table>
+
+      <p class="desc s3">재해 종류 차이</p>
+      <div class="two-col">
+        <div class="mini-card">
+          <h4>농업재해 목적물</h4>농작물/임산물/가축/농업용 시설물<br>
+          재해: 자연재해, 조수해, 화재, <strong>병충해·질병</strong>
+        </div>
+        <div class="mini-card">
+          <h4>어업재해 목적물</h4>양식수산물/어업용 시설물<br>
+          재해: 자연재해, 화재, 수산질병<br>
+          ⚠️ <strong>조수해 없음</strong>
+        </div>
+      </div>
+
+      <p class="desc s3">기본계획 vs 시행계획</p>
+      <div class="two-col">
+        <div class="mini-card"><h4>기본계획</h4><strong>5년마다</strong> 수립, 두 장관 + 심의회 심의</div>
+        <div class="mini-card"><h4>시행계획</h4><strong>매년</strong> 수립, 기본계획 실행용</div>
+      </div>
+
+      <div class="mnemonic">발종대지
+        <small>기본계획 포함사항: 발전방향, 종류별 가입률, 대상품목, 지원·평가</small>
+      </div>
+
+      <p class="desc s3">심의회 구성</p>
+      <div class="keyword-row">
+        <span class="kw blue">21명 이내</span>
+        <span class="kw red">위원장 = 농림부 <strong>차관</strong> (장관 아님!)</span>
+        <span class="kw">개의: 재적 과반 출석</span>
+        <span class="kw">의결: 출석 과반 찬성</span>
+      </div>
+
+      <p class="desc s2">분과위원회 구성</p>
+      <div class="keyword-row">
+        <span class="kw">농작물 분과</span><span class="kw">임산물 분과</span>
+        <span class="kw">가축 분과</span><span class="kw red">농업인 안전보험 분과</span>
+      </div>
+      <div class="alert-box info">분과위원회: <strong>9명 이내</strong>, 분과위원장 = 위원장이 지명</div>
+    </div>
+  </div>
+
+  <!-- 02강 -->
+  <div class="card theme-2">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>02강 보험사업자·모집자·약정·보험료율</h3>
+      <span class="imp">★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s3">재해보험 사업을 할 수 있는 자</p>
+      <div class="keyword-row">
+        <span class="kw blue">① 수산업협동조합 중앙회</span>
+        <span class="kw blue">② 산림조합 중앙회</span>
+        <span class="kw blue">③ 보험업법상 보험회사</span>
+        <span class="kw blue">④ 가축재해보험 중앙회</span>
+      </div>
+
+      <p class="desc s3">약정 제출 서류 (5가지)</p>
+      <div class="keyword-row">
+        <span class="kw">신청서</span><span class="kw">사업방법서</span>
+        <span class="kw">보험약관</span><span class="kw">보험료·책임준비금 산출방법</span>
+        <span class="kw">정관</span>
+      </div>
+
+      <p class="desc s3">보험료율 산정</p>
+      <div class="alert-box warn">
+        산정 주체: <strong>재해보험 사업자</strong><br>
+        산정 기준: <strong>보험목적물별 + 보상방식별</strong><br>
+        (재해보험 종류별 ❌ / 지역별 ❌ / 가입자별 ❌)
+      </div>
+
+      <p class="desc s3">모집 가능자</p>
+      <div class="keyword-row">
+        <span class="kw">수협 중앙회·회원조합 임직원</span>
+        <span class="kw">수협은행 임직원</span>
+        <span class="kw">산림조합 중앙회·회원조합 임직원</span>
+        <span class="kw">중앙회장·조합장 인정자</span>
+        <span class="kw">보험모집인</span>
+      </div>
+
+      <div class="alert-box info">사고 예방을 위해 보험료 일부 반환 → "할 수 있다" (의무 ❌)</div>
+    </div>
+  </div>
+
+  <!-- 03강 -->
+  <div class="card theme-2">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>03강 손해평가인 자격·손해평가사 제도</h3>
+      <span class="imp">★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s3">손해평가 담당자 3종</p>
+      <div class="keyword-row">
+        <span class="kw blue">① 손해평가인 (사업자 위촉)</span>
+        <span class="kw blue">② 손해평가사 (자격시험 합격)</span>
+        <span class="kw blue">③ 사정사 (보험업법 제186조)</span>
+      </div>
+
+      <p class="desc s3">정기교육 (손해평가인)</p>
+      <div class="keyword-row">
+        <span class="kw red">주체: 장관</span>
+        <span class="kw red">대상: 손해평가인</span>
+        <span class="kw red">횟수: 연 1회 이상</span>
+        <span class="kw red">시간: 4시간 이상</span>
+      </div>
+      <div class="alert-box warn">손해평가사 교육 → "할 수 있다" (의무 아님!) | 평가인 교육 → "해야 한다"</div>
+
+      <p class="desc s3">손해평가인 위촉 자격요건 (연차 핵심)</p>
+      <table class="std">
+        <tr><th>트랙</th><th>기간</th><th>내용</th></tr>
+        <tr><td>임직원 손해평가 업무</td><td><strong>2년</strong></td><td>보험회사·조합 임직원</td></tr>
+        <tr><td>관련업무(지원+보험)</td><td><strong>3년</strong></td><td>영농/산림/수산 지원 + 보험·공제</td></tr>
+        <tr><td>공무원 경력</td><td><strong>3년</strong></td><td>농림부·농진청·통계청·지자체</td></tr>
+        <tr><td>조교수</td><td><strong>3년</strong></td><td>관련학 교육</td></tr>
+        <tr><td>고등학교 교원</td><td><strong>5년</strong></td><td>관련 과목 교육</td></tr>
+        <tr><td>현장 경력</td><td><strong>5년</strong></td><td>경작/사육/양식</td></tr>
+        <tr><td>전공+연구</td><td><strong>5년</strong></td><td>관련 전공 학사 + 연구</td></tr>
+      </table>
+
+      <p class="desc s3">손해평가사 업무 범위</p>
+      <div class="keyword-row">
+        <span class="kw green">① 피해사실 확인</span>
+        <span class="kw green">② 보험가액 평가</span>
+        <span class="kw green">③ 손해액 평가</span>
+        <span class="kw red">보험요율 산출 ❌</span>
+      </div>
+
+      <p class="desc s3">1차 시험 면제 대상</p>
+      <div class="keyword-row">
+        <span class="kw">전년도 1차 합격자</span>
+        <span class="kw">손해평가 경력 3년 이상 평가인</span>
+        <span class="kw">사정사</span>
+        <span class="kw blue">금·손·농·화 업무 3년 이상</span>
+      </div>
+      <div class="alert-box info">부정응시·자격취소 후 <strong>2년</strong> 경과 전까지 응시 제한</div>
+    </div>
+  </div>
+
+  <!-- 04강 -->
+  <div class="card theme-2">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>04강 손해평가사 자격취소·업무정지</h3>
+      <span class="imp">★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s3">자격취소 사유 5가지</p>
+      <div class="mnemonic">부거명알업
+        <small>부정취득 / 거짓평가 / 명의대여 / 알선 / 업무정지 중 업무</small>
+      </div>
+      <div class="alert-box danger">
+        <strong>반드시 취소 (해야 한다):</strong> 부정취득 + 업무정지 중 업무<br>
+        <strong>취소 가능 (할 수 있다):</strong> 거짓평가 + 명의대여 + 알선
+      </div>
+      <div class="alert-box warn">거짓 손해평가: <strong>1회 → 시정명령</strong>, <strong>2회 → 취소</strong></div>
+
+      <p class="desc s3">업무정지</p>
+      <div class="keyword-row">
+        <span class="kw red">최대 1년</span>
+        <span class="kw">가중 기준: 최근 3년</span>
+        <span class="kw">여러 위반: 가장 무거운 처분 + 1/2 가중</span>
+        <span class="kw green">감경: 1/2 범위 가능</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05강 -->
+  <div class="card theme-2">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>05강 재정지원·업무위탁·수급권 보호</h3>
+      <span class="imp">★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s3">정부 vs 지자체 재정지원</p>
+      <table class="std">
+        <tr><th>지원 주체</th><th>보험료</th><th>운영비</th></tr>
+        <tr><td>정부</td><td>✅ 일부</td><td>✅ <strong>전부 또는 일부</strong></td></tr>
+        <tr><td>지자체</td><td>✅ 일부</td><td>❌ 없음</td></tr>
+      </table>
+      <div class="alert-box info">지원금은 <strong>사업자에게 지급</strong> (가입자 직접 지급 ❌)</div>
+
+      <p class="desc s3">수급권 보호</p>
+      <div class="alert-box warn">
+        보험금 청구권 → <strong>압류 불가</strong> (원칙)<br>
+        예외: 보험목적물 담보 제공 시 압류 가능<br>
+        <strong>재생산 비용 보장 보험금 → 전액 압류 금지</strong><br>
+        그 외 보험금 → 1/2 보호 (절반만 압류 금지)
+      </div>
+
+      <p class="desc s3">업무위탁 대상</p>
+      <div class="mnemonic">지품수손비
+        <small>지역조합 / 품목별조합 / 수협·수협은행 / 손해사정업자 / 비영리법인(장관허가)</small>
+      </div>
+      <div class="alert-box danger">영리법인 ❌ 위탁 불가</div>
+
+      <p class="desc s3">전용계좌 예외 사유</p>
+      <div class="keyword-row">
+        <span class="kw red">① 정보통신 장애</span>
+        <span class="kw red">② 금융기관 정상 영업 불가</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06강 -->
+  <div class="card theme-2">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>06강 재보험사업·재보험기금</h3>
+      <span class="imp">★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="mnemonic">요금수기책변지운
+        <small>재보험 약정 포함사항: 요금(재보험료+금) / 수수료 / 기간 / 책임범위 / 변경해지 / 지급분쟁 / 운영관리</small>
+      </div>
+
+      <div class="mnemonic">재출차전운회
+        <small>재보험기금 재원: 재보험료 / 출연금 / 차입금 / 전입금 / 운용수익 / 회수금</small>
+      </div>
+
+      <p class="desc s3">기금 결산 날짜 (시험 단골)</p>
+      <div class="flow">
+        <span class="flow-item">농금원</span>
+        <span class="flow-arr">→</span>
+        <span class="flow-item">다음 해 <strong>2월 15일</strong></span>
+        <span class="flow-arr">→</span>
+        <span class="flow-item">장관에게 제출</span>
+        <span class="flow-arr">→</span>
+        <span class="flow-item"><strong>2월 말</strong></span>
+        <span class="flow-arr">→</span>
+        <span class="flow-item">기재부 장관 제출</span>
+      </div>
+
+      <div class="alert-box warn">기금 계정: <strong>한국은행</strong>에 설치 (시중은행 ❌)</div>
+
+      <p class="desc s2">기금 여유자금 운용</p>
+      <div class="keyword-row">
+        <span class="kw">① 은행 예치</span>
+        <span class="kw">② 국채·공채·증권 매입</span>
+      </div>
+
+      <p class="desc s2">보험 가입 촉진 계획 제출</p>
+      <div class="alert-box info">사업자 → 매년 <strong>1월 31일</strong>까지 장관에게 제출</div>
+    </div>
+  </div>
+
+  <!-- 07강 벌칙 -->
+  <div class="card theme-2">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>07강 벌칙·과태료·청문</h3>
+      <span class="imp">★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s3">벌칙 체계</p>
+      <table class="std">
+        <tr><th>형량</th><th>대상 행위</th></tr>
+        <tr><td><strong>3년 이하 징역 / 3천만원 이하 벌금</strong></td><td>금품 제공·요구 (가장 강한 처벌)</td></tr>
+        <tr><td><strong>1년 이하 징역 / 1천만원 이하 벌금</strong></td><td>모집규정 위반, 거짓평가, 자격증 대여·알선</td></tr>
+        <tr><td><strong>500만원 이하 벌금</strong></td><td>재해보험 회계 처리 위반</td></tr>
+      </table>
+
+      <p class="desc s3">과태료</p>
+      <table class="std">
+        <tr><th>금액</th><th>대상</th></tr>
+        <tr><td>1천만원 이하</td><td>사업자가 규정 위반 보험 안내</td></tr>
+        <tr><td>500만원 이하</td><td>비사업자 보험 안내, 모집 금지행위, 보고·서류 거부</td></tr>
+      </table>
+
+      <div class="alert-box warn">
+        <strong>금융위원회</strong>가 부과하는 과태료: 명령 위반 + 검사 거부 (딱 2개)<br>
+        나머지는 <strong>장관</strong>이 부과<br>
+        <strong>청문 필요:</strong> 자격취소 + 업무정지 처분 시
+      </div>
+    </div>
+  </div>
+
+  <!-- 손해평가반 -->
+  <div class="card theme-2">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>09강 손해평가반 구성·재조사·검증조사</h3>
+      <span class="imp">★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s3">손해평가반 구성</p>
+      <div class="keyword-row">
+        <span class="kw red">구성 주체: 재해보험사업자</span>
+        <span class="kw red">인원: 5인 이내</span>
+        <span class="kw">포함: 평가인·평가사·사정사 중 1인 이상</span>
+        <span class="kw">일정 계획: 평가반별 수립</span>
+      </div>
+
+      <p class="desc s3">평가반 제외 (배제) 사유</p>
+      <div class="keyword-row">
+        <span class="kw red">① 자기·친족 계약 평가</span>
+        <span class="kw red">② 자기가 모집한 계약 평가</span>
+        <span class="kw red">③ 자기가 조사한 사건 재조사·검증</span>
+        <span class="kw red">④ 30일 이내 상호 평가</span>
+      </div>
+
+      <p class="desc s3">현지조사서 절차</p>
+      <div class="flow">
+        <span class="flow-item">사업자 준비·배부</span>
+        <span class="flow-arr">→</span>
+        <span class="flow-item">평가반 작성 + 가입자 서명</span>
+        <span class="flow-arr">→</span>
+        <span class="flow-item">최종 조사일로부터 <strong>7영업일</strong> 내 제출</span>
+      </div>
+      <div class="alert-box warn">7일 ❌ → <strong>7영업일</strong> ⭕ (하우스·시설은 초과 가능)</div>
+
+      <p class="desc s3">재조사 vs 검증조사</p>
+      <table class="std">
+        <tr><th>구분</th><th>재조사</th><th>검증조사</th></tr>
+        <tr><td>신청</td><td>가입자 요청 + 7일 내</td><td>사업자·재보험사·장관 요청</td></tr>
+        <tr><td>방법</td><td>다른 손해평가반 수행</td><td>임의추출 조사</td></tr>
+        <tr><td>결과</td><td>-</td><td>현저한 차이 → <strong>전체 재조사</strong></td></tr>
+      </table>
+
+      <p class="desc s3">손해평가 단위</p>
+      <div class="keyword-row">
+        <span class="kw">농작물 → 농지별</span>
+        <span class="kw">가축 → 개별 가축별</span>
+        <span class="kw red">벌 → 벌통 단위</span>
+        <span class="kw">농업시설 → 목적물별</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 손해평가요령 -->
+  <div class="card theme-2">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>10~11강 손해평가요령 핵심</h3>
+      <span class="imp">★★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s4">보험금 기본 공식</p>
+      <div class="formula">보험금 = 가입금액 × 피해율 − 자기부담금</div>
+      <div class="formula">피해율 = (평년수확량 - 실제수확량 - 미보상감수량) / 평년수확량</div>
+
+      <p class="desc s5">보장방식별 품목 암기</p>
+      <table class="std">
+        <tr><th>보장방식</th><th>품목</th><th>특이사항</th></tr>
+        <tr><td>적과전 종합위험</td><td><strong>사과·배·단감·떫은감</strong></td><td>착과감소 + 과실손해 보험금</td></tr>
+        <tr><td>인삼 특정위험</td><td>인삼</td><td>보상재해 8개: <strong>강태우집화폭침(폭염)</strong></td></tr>
+        <tr><td>수확감소 보장</td><td>가장 많은 품목</td><td>병충해 보상: <strong>감자·복숭아</strong></td></tr>
+        <tr><td>손해액 방식</td><td><strong>옥수수·온주밀감</strong></td><td>min(가입금액, 손해액) − 자기부담</td></tr>
+        <tr><td>과실손해 보장</td><td><strong>복분자·오디·무화과·온주밀감</strong></td><td>복오무온 암기</td></tr>
+      </table>
+
+      <p class="desc s4">벼 특수 보험금</p>
+      <div class="keyword-row">
+        <span class="kw red">이앙·직파 불능 → 가입금액 × 15%</span>
+        <span class="kw red">경작불능 → 식물체 피해율 65% 이상</span>
+        <span class="kw red">수확불능 → 경작불능 보험금 + 15%</span>
+      </div>
+
+      <p class="desc s4">생산비 보장 공식</p>
+      <div class="mnemonic">잔경피자
+        <small>고추·브로콜리: 잔존보험가입금액 × 경과비율 × 피해율 − 자기부담금</small>
+      </div>
+      <div class="formula">피해율 = 피해비율 × 손해정도비율 − 미보상비율 (피손미)</div>
+
+      <p class="desc s4">나무손해 보장</p>
+      <div class="alert-box info">
+        보험가액 = <strong>최초 보험사고 발생 시</strong> 과실 생산 가능한 나무수 × 나무가격<br>
+        자기부담: <strong>5%</strong><br>
+        피해율 = 고사나무수 / 실제 결과주수
+      </div>
+
+      <p class="desc s3">가축 적용가격 기준</p>
+      <div class="alert-box warn">가입 당시 ❌ → <strong>사고 발생 당시</strong> 적용가격 기준</div>
+
+      <p class="desc s3">농업용 시설물</p>
+      <div class="formula">보험가액 = 재조달가액 − 감가상각액</div>
+      <div class="formula">일부보험 보험금 = 손해액 × (가입금액 / 보험가액)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ 과목 3 ════════════ -->
+<div class="section" id="sec3">
+  <div class="section-header">
+    <span class="badge" style="background:var(--c3)">과목 3</span>
+    <h2 style="color:var(--c3)">재배학 &amp; 원예작물학</h2>
+  </div>
+  <div class="alert-box tip" style="margin-bottom:16px"><strong>목표 60점 전략:</strong> 작물 분류·일장반응·온도적응성·재해 파트만 완벽히 해도 과락 방지 가능!</div>
+
+  <!-- 기초 -->
+  <div class="card theme-3 open">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>01~02강 작물 기초·토양·무기성분</h3>
+      <span class="imp">★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s3">작물 수량 삼각형</p>
+      <div class="keyword-row">
+        <span class="kw">① 환경</span><span class="kw">② 재배기술</span><span class="kw">③ 유전성</span>
+      </div>
+      <div class="alert-box info"><strong>최소율의 법칙:</strong> 가장 부족한 요소가 수량 결정</div>
+
+      <p class="desc s5">토양 3상 구성비</p>
+      <div class="keyword-row">
+        <span class="kw red">고상 50%</span>
+        <span class="kw blue">액상 25%</span>
+        <span class="kw green">기상 25%</span>
+      </div>
+
+      <p class="desc s5">체내 이동성 (시험 단골)</p>
+      <div class="two-col">
+        <div class="mini-card">
+          <h4>이동성 높음 → <span style="color:#c0392b">늙은 잎(하엽)에 증상</span></h4>
+          질소(N), 인(P), 칼륨(K), 마그네슘(Mg)
+        </div>
+        <div class="mini-card">
+          <h4>이동성 낮음 → <span style="color:#1a4d8a">어린 잎에 증상</span></h4>
+          칼슘(Ca), 철(Fe), 망간(Mn), 붕소(B), 아연(Zn)
+        </div>
+      </div>
+
+      <p class="desc s3">주요 원소 결핍 증상</p>
+      <div class="keyword-row">
+        <span class="kw red">칼슘(Ca) 결핍 → 배추 심부썩음 / 사과 고두병</span>
+        <span class="kw red">붕소(B) 결핍 → 사과 축과병</span>
+        <span class="kw">철(Fe) 과다 → 벼 흑변고사</span>
+      </div>
+
+      <p class="desc s4">토양 수분 종류 (PF 작은 순 = 이용 가능 순)</p>
+      <div class="flow">
+        <span class="flow-item">중력수 (아래 이동)</span>
+        <span class="flow-arr">→</span>
+        <span class="flow-item red">모관수 ✅ 작물 이용</span>
+        <span class="flow-arr">→</span>
+        <span class="flow-item">흡습수 (거의 불가)</span>
+        <span class="flow-arr">→</span>
+        <span class="flow-item">결합수 (불가)</span>
+      </div>
+      <div class="keyword-row">
+        <span class="kw green">포장용수량 = 작물 생육 최적</span>
+        <span class="kw red">영구위조점 PF 4.2 = 회복 불가</span>
+        <span class="kw blue">유효수분 = 포장용수량 ~ 영구위조점</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 광합성 -->
+  <div class="card theme-3">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>11강 광합성·C3·C4·CAM·식물호르몬</h3>
+      <span class="imp">★★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s5">C3 / C4 / CAM 비교 (시험 최중요)</p>
+      <table class="std">
+        <tr><th>구분</th><th>C3 식물</th><th>C4 식물</th><th>CAM 식물</th></tr>
+        <tr><td>광호흡</td><td>발생 (효율↓)</td><td>거의 없음 (효율↑)</td><td>없음</td></tr>
+        <tr><td>특징</td><td>일반적</td><td>내건성 강</td><td>밤에 CO₂ 흡수</td></tr>
+        <tr><td>예</td><td>벼, 보리, 밀</td><td>옥수수, 수수, 사탕수수</td><td>파인애플, 다육식물</td></tr>
+      </table>
+
+      <p class="desc s5">식물호르몬 5가지 암기법</p>
+      <div class="mnemonic">생장-옥신 / 도장-지베렐린 / 분열-시토키닌 / 성숙-에틸렌 / 억제-ABA</div>
+      <table class="std">
+        <tr><th>호르몬</th><th>주기능</th><th>시험 포인트</th></tr>
+        <tr><td>옥신</td><td>세포 신장, 발근 촉진</td><td>발근촉진제 루톤, 낙과 방지</td></tr>
+        <tr><td>지베렐린</td><td>줄기 신장, 발아 촉진</td><td><strong>씨 없는 포도</strong> (1차: 무핵화, 2차: 과실비대)</td></tr>
+        <tr><td>시토키닌</td><td>세포 분열, 노화 억제</td><td>아스파라거스 신선도 유지</td></tr>
+        <tr><td>에틸렌</td><td>과실 성숙, 낙엽 촉진</td><td>기체 호르몬, 스트레스 호르몬</td></tr>
+        <tr><td>ABA</td><td>생장 억제, 휴면 유도</td><td>발아 억제</td></tr>
+      </table>
+
+      <p class="desc s4">CN율 (탄질율)</p>
+      <div class="two-col">
+        <div class="mini-card"><h4>CN율 높음 (탄수화물 ↑)</h4>→ <strong>생식생장</strong> (개화·결실)</div>
+        <div class="mini-card"><h4>CN율 낮음 (질소 ↑)</h4>→ <strong>영양생장</strong> (키·비대)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 춘화·일장 -->
+  <div class="card theme-3">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>12강 춘화·일장반응</h3>
+      <span class="imp">★★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s5">일장 반응 (시험 최빈출)</p>
+      <table class="std">
+        <tr><th>구분</th><th>개화 조건</th><th>대표 작물</th></tr>
+        <tr><td><strong>단일식물</strong></td><td>낮 짧을 때 (밤 길 때)</td><td>벼, 콩, 국화, 딸기</td></tr>
+        <tr><td><strong>장일식물</strong></td><td>낮 길 때</td><td>보리, 밀, 시금치, 상추, 양파</td></tr>
+        <tr><td><strong>중일식물</strong></td><td>낮 길이 영향 없음</td><td>토마토, 오이</td></tr>
+      </table>
+      <div class="alert-box warn">단일식물 핵심: <strong>연속된 밤</strong> 필요 — 야간에 빛 쬐면 개화 억제 (야간조파)</div>
+
+      <p class="desc s4">춘화 (Vernalization)</p>
+      <div class="keyword-row">
+        <span class="kw">저온 처리 → 개화 촉진</span>
+        <span class="kw red">춘화 감응 부위: 생장점</span>
+      </div>
+      <div class="two-col">
+        <div class="mini-card"><h4>종자 춘화</h4>종자 단계에서 저온 필요<br>예: 무, 상추</div>
+        <div class="mini-card"><h4>녹식 춘화</h4>생육 중 저온 필요<br>예: 양배추, 양파, 당근</div>
+      </div>
+
+      <p class="desc s3">일장 효과 예시</p>
+      <div class="keyword-row">
+        <span class="kw blue">단일 → 고구마 덩이뿌리·감자 덩이줄기 촉진</span>
+        <span class="kw green">장일 → 양파 비대 촉진</span>
+        <span class="kw">단일+저온 → 오이·호박 암꽃 증가</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 번식·종자 -->
+  <div class="card theme-3">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>13~15강 종자·발아·번식</h3>
+      <span class="imp">★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s5">종자 구조</p>
+      <div class="keyword-row">
+        <span class="kw red">종피 = 보호 + 발아 조절</span>
+        <span class="kw red">배 = 장차 식물 본체</span>
+        <span class="kw red">배유 = 영양 저장</span>
+      </div>
+      <div class="two-col">
+        <div class="mini-card"><h4>유배유 종자 (배유 있음)</h4>벼, 밀, 옥수수</div>
+        <div class="mini-card"><h4>무배유 종자 (떡잎 저장)</h4>콩, 강낭콩</div>
+      </div>
+
+      <p class="desc s4">종자 휴면 원인</p>
+      <div class="keyword-row">
+        <span class="kw">① 배 미숙</span>
+        <span class="kw">② 배 자체 휴면</span>
+        <span class="kw red">③ 종피 원인 (불투기성/불투수성/기계적 저항)</span>
+        <span class="kw red">④ ABA (발아 억제 호르몬)</span>
+      </div>
+      <div class="alert-box info">도꼬마리: 종피 불투기성 — 종자 2개 중 하나 발아, 하나 휴면</div>
+
+      <p class="desc s4">휴면 타파 방법</p>
+      <div class="keyword-row">
+        <span class="kw green">① 종피 파상 (상처내기)</span>
+        <span class="kw green">② 지베렐린 처리</span>
+        <span class="kw green">③ 온도 처리</span>
+        <span class="kw green">④ 후숙</span>
+      </div>
+
+      <p class="desc s5">무성번식 종류</p>
+      <table class="std">
+        <tr><th>방법</th><th>특징</th><th>핵심</th></tr>
+        <tr><td>삽목</td><td>절단 후 발근</td><td>옥신(발근촉진제)</td></tr>
+        <tr><td>접목</td><td>대목 + 접수 결합</td><td><strong>형성층</strong> 맞춰야 성공</td></tr>
+        <tr><td>취목</td><td>가지 묻어 발근 후 분리</td><td>고취법/선취법/성토법</td></tr>
+        <tr><td>분주</td><td>포기 나누기</td><td>숙근초, 화훼류</td></tr>
+        <tr><td>조직배양</td><td>전형성능 이용</td><td>대량 번식, 무균 환경</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 비료·방제 -->
+  <div class="card theme-3">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>17강 비료·농약·방제</h3>
+      <span class="imp">★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s3">연면시비 (잎 살포)</p>
+      <div class="keyword-row">
+        <span class="kw">효과 빠름 (기공 통해 흡수)</span>
+        <span class="kw red">잎 뒷면 살포</span>
+        <span class="kw red">늦은 오후 실시</span>
+        <span class="kw">농도 높으면 약해</span>
+      </div>
+
+      <p class="desc s4">병해충 방제 목적</p>
+      <div class="alert-box warn">완전 박멸 ❌ → <strong>경제적 피해 수준 이하</strong>로 유지</div>
+
+      <p class="desc s4">IPM (종합적 방제)</p>
+      <div class="keyword-row">
+        <span class="kw">재배적 방제</span>
+        <span class="kw">생물적 방제</span>
+        <span class="kw">물리적 방제</span>
+        <span class="kw green">화학적 방제</span>
+      </div>
+      <p class="desc">특징: 농약 최소화 + 환경 보호 + 지속가능 농업</p>
+
+      <p class="desc s3">주요 병 증상</p>
+      <div class="keyword-row">
+        <span class="kw red">곰팡이병 → 고온다습, 포자·균사로 번식</span>
+        <span class="kw red">세균병 → 무름·악취·고름</span>
+        <span class="kw red">바이러스병 → 잎 무늬·위축·말림</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 재해 -->
+  <div class="card theme-3">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>18~20강 각종 재해 (손해평가 핵심)</h3>
+      <span class="imp">★★★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s5">재해 핵심 원리 비교</p>
+      <table class="std">
+        <tr><th>재해</th><th>핵심 원인</th><th>공통 대책</th></tr>
+        <tr><td>수해·습해</td><td><strong>산소 부족</strong> → 무기호흡</td><td>배수</td></tr>
+        <tr><td>한해(가뭄)</td><td><strong>수분 부족</strong> → 광합성 감소</td><td>관수, 멀칭</td></tr>
+        <tr><td>냉해</td><td><strong>저온</strong> → 생리 장해</td><td>재배시기 조절</td></tr>
+        <tr><td>열해</td><td><strong>고온</strong> → 호흡 증가</td><td>통기 개선</td></tr>
+        <tr><td>동해</td><td><strong>세포 동결</strong></td><td>내동성 품종</td></tr>
+      </table>
+
+      <p class="desc s5">냉해 유형 4가지</p>
+      <div class="keyword-row">
+        <span class="kw">① 지연형 — 생육·출수 지연</span>
+        <span class="kw red">② 장해형 — <strong>감수분열기</strong> 피해 (불임립)</span>
+        <span class="kw">③ 병해형 — 병 저항성 감소</span>
+        <span class="kw">④ 혼합형 — 복합 발생</span>
+      </div>
+
+      <p class="desc s4">습해 유해물질</p>
+      <div class="flow">
+        <span class="flow-item">과습</span><span class="flow-arr">→</span>
+        <span class="flow-item">산소 부족</span><span class="flow-arr">→</span>
+        <span class="flow-item">혐기호흡</span><span class="flow-arr">→</span>
+        <span class="flow-item red"><strong>황화수소(H₂S)</strong> + 메탄 + 유기산</span>
+      </div>
+
+      <p class="desc s4">도복 → 수발아</p>
+      <div class="alert-box warn">
+        <strong>도복 원인:</strong> 질소 과다, 칼륨·규산 부족, 밀식, 깊은 담수<br>
+        <strong>수발아:</strong> 등숙기 쓰러진 이삭에서 발아 — 자포니카·조생종에서 많이 발생<br>
+        <strong>풍해 대책:</strong> 방풍림 조성 (바람 방향에 <strong>직각</strong>으로 교목 식재)
+      </div>
+
+      <p class="desc s3">내열성/내동성 작물 특징</p>
+      <div class="two-col">
+        <div class="mini-card">
+          <h4>내열성 강한 특징</h4>결합수 많음, 자유수 적음<br>삼투압 높음, 당분 많음, 전분 적음
+        </div>
+        <div class="mini-card">
+          <h4>내동성 강한 특징</h4>SH기 많음, 당분 많음<br>친수성 콜로이드 많음, 연도 높음
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 채소 -->
+  <div class="card theme-3">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>21강 채소 분류</h3>
+      <span class="imp">★★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s5">이용 부위별 분류 (시험 1위)</p>
+      <table class="std">
+        <tr><th>분류</th><th>대표 작물</th></tr>
+        <tr><td>엽채류 (잎)</td><td>배추, 상추, 시금치, 양배추</td></tr>
+        <tr><td>근채류 (뿌리)</td><td>무, 당근, 고구마</td></tr>
+        <tr><td>과채류 (열매)</td><td>토마토, 오이, 호박, 수박</td></tr>
+        <tr><td>경채류 (줄기)</td><td>아스파라거스, 셀러리</td></tr>
+        <tr><td>인경채류 (비늘줄기)</td><td>마늘, 양파</td></tr>
+        <tr><td>화채류 (꽃)</td><td>브로콜리, 콜리플라워</td></tr>
+      </table>
+
+      <p class="desc s5">온도 적응성</p>
+      <div class="two-col">
+        <div class="mini-card">
+          <h4>호온성 (고온 선호)</h4>박과(오이·호박·수박), 가지과(토마토·고추·가지)
+        </div>
+        <div class="mini-card">
+          <h4>호냉성 (저온 선호)</h4>엽채류(배추·상추·시금치), <strong>딸기(장미과 + 양성식물)</strong>
+        </div>
+      </div>
+
+      <p class="desc s4">주요 채소 암기 포인트</p>
+      <div class="keyword-row">
+        <span class="kw red">딸기 → 호냉성 + 양성식물 + 장미과 + 천근성 + 런너 번식</span>
+        <span class="kw">오이 → 박과, 단성화, 암꽃증가: 저온+단일</span>
+        <span class="kw">토마토 → 가지과, 라이코펜, 카로티노이드</span>
+        <span class="kw">고추 → 가지과, 무한화서</span>
+        <span class="kw">마늘 → 백합과, 알리신</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 과수 -->
+  <div class="card theme-3">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>22~23강 과수 분류·사과·감귤·포도·배</h3>
+      <span class="imp">★★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s5">과수 구조별 분류 (시험 핵심)</p>
+      <table class="std">
+        <tr><th>분류</th><th>구조</th><th>대표 과수</th></tr>
+        <tr><td>인과류</td><td>꽃받기 발달</td><td><strong>사과, 배, 비파</strong></td></tr>
+        <tr><td>핵과류</td><td>핵(씨) 있음</td><td>복숭아, 자두, 살구, 매실, 체리</td></tr>
+        <tr><td>장과류</td><td>과육 즙 많음</td><td>포도, 블루베리, 키위</td></tr>
+        <tr><td>감과류</td><td>감 계열</td><td>단감, 떫은감</td></tr>
+        <tr><td>준인과류</td><td>감귤 계열</td><td>감귤류</td></tr>
+        <tr><td>견과류</td><td>껍질 딱딱</td><td>밤, 호두, 잣</td></tr>
+      </table>
+      <div class="alert-box warn">진과(자방 발달): 감귤, 복숭아, 포도 | 위과(자방 외 조직): 사과, 배, 딸기</div>
+
+      <p class="desc s5">전정 암기법</p>
+      <div class="mnemonic">억강 촉약
+        <small>결실 억제 = 강전정(20% 이상) / 결실 촉진 = 약전정(10% 이하)</small>
+      </div>
+
+      <p class="desc s4">사과 생리장해</p>
+      <div class="keyword-row">
+        <span class="kw red">고두병 → 칼슘(Ca) 결핍 → 석회 시용</span>
+        <span class="kw red">축과병 → 붕소(B) 결핍</span>
+        <span class="kw">안토시아닌 → 빨강·보라 (빛 많을수록, 저온에서 증가)</span>
+      </div>
+
+      <p class="desc s4">각 과수별 핵심 암기</p>
+      <table class="std">
+        <tr><th>과수</th><th>과</th><th>특징</th><th>생리장해</th></tr>
+        <tr><td>사과</td><td>장미과</td><td>타가수분, 호냉성, 낙엽</td><td>고두병(Ca↓), 축과병(B↓)</td></tr>
+        <tr><td>감귤</td><td>운향과</td><td>상록, 아열대, 준인과류</td><td>일소, 열과</td></tr>
+        <tr><td>복숭아</td><td>장미과</td><td>내한성 강, 내습성 약</td><td>핵할, 열과</td></tr>
+        <tr><td>포도</td><td>포도과</td><td>덩굴성, 천근성</td><td>탈립, 꽃떨이</td></tr>
+        <tr><td>배</td><td>장미과</td><td>낙엽, 저온 요구</td><td>동록, 엽소, 석세포</td></tr>
+      </table>
+      <div class="alert-box info">포도 미국종(캠벨·델라웨어): 내한성 강 + 내산성 강 (애팔래치아 산맥 원산)</div>
+    </div>
+  </div>
+
+  <!-- 화훼 -->
+  <div class="card theme-3">
+    <div class="card-header" onclick="toggleCard(this.parentElement)">
+      <h3>24~26강 화훼·시설원예</h3>
+      <span class="imp">★★★</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="desc s5">국화 (화훼 시험 1순위)</p>
+      <div class="keyword-row">
+        <span class="kw red">단일식물 (12시간 이하 단일 조건에서 개화)</span>
+        <span class="kw">숙근초</span>
+        <span class="kw">두상화서 (설상화+관상화)</span>
+      </div>
+      <div class="two-col">
+        <div class="mini-card"><h4>전조재배 (야간 빛 공급)</h4>단일조건 차단 → 꽃눈 억제 → 영양생장 촉진</div>
+        <div class="mini-card"><h4>차광재배 (빛 차단)</h4>밤 길어짐 → 꽃눈 촉진 → 개화 촉진</div>
+      </div>
+
+      <p class="desc s4">국화 생리장해</p>
+      <div class="keyword-row">
+        <span class="kw red">로제트 → 줄기 신장 안됨 (여름고온→가을저온) → 지베렐린 처리</span>
+        <span class="kw red">관생(통상화) → 고온장해 → 차광·환기</span>
+        <span class="kw">블래스팅 → 개화 실패</span>
+        <span class="kw">블라인드 → 꽃봉오리 미형성</span>
+      </div>
+
+      <p class="desc s4">변온 (DIF)</p>
+      <div class="two-col">
+        <div class="mini-card"><h4>+DIF (주간 &gt; 야간)</h4>초장 증가 (줄기 신장)</div>
+        <div class="mini-card"><h4>−DIF (야간 &gt; 주간)</h4>초장 감소 → 국화 재배에서 사용</div>
+      </div>
+
+      <hr class="divider">
+      <p class="desc s4">시설원예 핵심 문제점과 대책</p>
+      <table class="std">
+        <tr><th>문제점</th><th>원인</th><th>대책</th></tr>
+        <tr><td>염류 집적</td><td>강우 차단 → 용탈 없음</td><td>관수, 객토, 환토</td></tr>
+        <tr><td>CO₂ 부족</td><td>광합성 소비 + 공급 차단</td><td><strong>탄산시비</strong> (일출 후~환기 전)</td></tr>
+        <tr><td>광량 감소</td><td>피복재·구조체·먼지</td><td>산광 필름, 반사판</td></tr>
+        <tr><td>공중습도 높음</td><td>증산 많음 + 환기 부족</td><td>환기</td></tr>
+      </table>
+
+      <p class="desc s3">피복재 종류</p>
+      <table class="std">
+        <tr><th>재료</th><th>특징</th></tr>
+        <tr><td>PE (폴리에틸렌)</td><td>가장 많이 사용, 투광성 좋음, 보온성 약</td></tr>
+        <tr><td>PVC (염화비닐)</td><td><strong>보온성 가장 좋음</strong>, 먼지 잘 붙음</td></tr>
+        <tr><td>EVA (초산비닐)</td><td>보온성+투광성+내구성 우수, PE 대체</td></tr>
+      </table>
+
+      <p class="desc s3">양액재배 단점</p>
+      <div class="keyword-row">
+        <span class="kw red">완충능 작음 (환경 변화에 민감)</span>
+        <span class="kw red">비용 많이 듦</span>
+        <span class="kw red">병해 발생 시 피해 큼</span>
+      </div>
+      <div class="alert-box info">고설재배 → 딸기 재배에서 활용 (높이 약 1m)</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleCard(card) {
+  card.classList.toggle('open');
+}
+
+function setActive(el) {
+  document.querySelectorAll('.nav-bar a').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// 스크롤 시 현재 섹션 nav 활성화
+window.addEventListener('scroll', () => {
+  const sections = ['sec1','sec2','sec3'];
+  const links = document.querySelectorAll('.nav-bar a');
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 80) current = '#'+id;
+  });
+  links.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === current);
+  });
+});
+</script>
+</body>
+</html>
